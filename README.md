@@ -50,5 +50,3 @@ This dataset has 748 samples (501 samples for training & 246 samples for testing
 
 ### “Wine Quality” dataset
 This dataset has 4898 samples with 12 numerical attributes.I use this dataset to evaluate whether my algorithm can work well with the dataset with multiple attributes. I randomly select 750 of the total samples and categorize the target value by whether the target value is higher or lower than 6.5 to the categorical value “good” or “not good”, and split these 750 samples to 502 samples for training and 248 for testing my model.
-
-PS: Since I only study the impact of C4.5 algorithm on continuous data, this decision tree model can not handle the discrete data.
