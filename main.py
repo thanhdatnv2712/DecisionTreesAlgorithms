@@ -49,3 +49,56 @@ results = decisions == y_test
 # calculate the accuracy and output
 accuracy = sum(results) / len(results)
 print("My model's accuracy for the iris dataset is: ", accuracy)
+
+df2 = pd.read_csv("./dataset/transfusion.csv")
+df2.head()
+
+attrs2 = df2.keys()[:-1]
+print("The number of samples in the total datasets are {}\n".format(df2.shape[0]))
+X_total2 = df2[attrs2]
+y_total2 = df2.iloc[:,-1]
+
+X_train2, X_test2, y_train2, y_test2 = train_test_split(X_total2, y_total2, test_size = 0.33,random_state = 49)
+
+print("The number of samples in the training datasets are {}".format(X_train2.shape[0]))
+print("The number of samples in the testing datasets are {}".format(X_test2.shape[0]))
+
+dt2 = TreeC4_5(X_train2,y_train2)
+dt2.fit()
+decisions = dt2.predict(X_test2)
+results = decisions == y_test2
+accuracy = sum(results) / len(results)
+print("My model's accuracy for the evaluation dataset 1 is: ", accuracy)
+
+df3 = pd.read_csv("./dataset/winequality-red.csv")
+
+# Here I randomly select 750 samples of the total
+df3 = df3.sample(n=750, random_state=50, axis=0)
+
+def change_target_type_w(x):
+  if x > 6.5:
+    return 'good'
+
+  else:
+    return 'not good'
+
+df3.loc[:,"quality"] = df3["quality"].apply(change_target_type_w)
+df3.head()
+
+attrs3 = df3.keys()[:-1]
+print("The number of samples in the total datasets are {}\n".format(df3.shape[0]))
+X_total3 = df3[attrs3]
+y_total3 = df3.iloc[:,-1]
+
+X_train3, X_test3, y_train3, y_test3 = train_test_split(X_total3, y_total3, test_size = 0.33,random_state = 49)
+
+
+print("The number of samples in the training datasets are {}".format(X_train3.shape[0]))
+print("The number of samples in the testing datasets are {}".format(X_test3.shape[0]))
+
+dt3 = TreeC4_5(X_train3,y_train3)
+dt3.fit()
+decisions = dt3.predict(X_test3)
+results = decisions == y_test3
+accuracy = sum(results) / len(results)
+print("My model's accuracy for the evaluation dataset 2 is: ", accuracy)

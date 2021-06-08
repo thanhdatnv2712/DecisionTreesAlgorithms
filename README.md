@@ -50,3 +50,22 @@ This dataset has 748 samples (501 samples for training & 246 samples for testing
 
 ### “Wine Quality” dataset
 This dataset has 4898 samples with 12 numerical attributes.I use this dataset to evaluate whether my algorithm can work well with the dataset with multiple attributes. I randomly select 750 of the total samples and categorize the target value by whether the target value is higher or lower than 6.5 to the categorical value “good” or “not good”, and split these 750 samples to 502 samples for training and 248 for testing my model.
+
+### Result
+```bash
+The number of samples in the total datasets are 150
+
+The number of samples in the training datasets are 100
+The number of samples in the testing datasets are 50
+My model's accuracy for the iris dataset is:  0.94
+The number of samples in the total datasets are 748
+
+The number of samples in the training datasets are 501
+The number of samples in the testing datasets are 247
+My model's accuracy for the evaluation dataset 1 is:  0.7246963562753036
+The number of samples in the total datasets are 750
+
+The number of samples in the training datasets are 502
+The number of samples in the testing datasets are 248
+My model's accuracy for the evaluation dataset 2 is:  0.8467741935483871
+```
