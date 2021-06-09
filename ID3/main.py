@@ -198,7 +198,7 @@ def calc_accuracy(df, tree):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data", "-d", type=str, default="dataset/weather.csv")
+    parser.add_argument("--data", "-d", type=str, default="../dataset/weather.csv")
     parser.add_argument("--min_sample", "-ms", type=int, default=2)
     parser.add_argument("--max_depth", "-md", type=int, default=5)
     args = parser.parse_args()
