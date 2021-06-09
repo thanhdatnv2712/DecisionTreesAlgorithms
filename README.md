@@ -4,7 +4,7 @@
 
 # DecisionTreesAlgorithms
 Algorithms Selection:
-- [ ] ID3
+- [X] ID3
 - [x] C4.5
 
 ## C4.5 Algorithm
