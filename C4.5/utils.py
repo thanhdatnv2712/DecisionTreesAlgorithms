@@ -38,7 +38,7 @@ class Myutils:
     bins_to_cut = [min(X[attr]),split_point,max(X[attr])]
 
     # Specifies the labels for the returned bins in labels_to_cut list
-    labels_to_cut = [attr + ' < ' + str(split_point), attr + ' > ' + str(split_point)]
+    labels_to_cut = [attr + ' <= ' + str(split_point), attr + ' > ' + str(split_point)]
 
     # use .cut() function to get the categorical variables column, left-include the first interval
     categorized_column = pd.cut(X[attr], bins= bins_to_cut , labels = labels_to_cut, include_lowest=True)
