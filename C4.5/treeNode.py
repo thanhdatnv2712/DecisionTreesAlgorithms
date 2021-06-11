@@ -47,6 +47,7 @@ class TreeNode:
       else:
         # initialize the value of max information gain ratio, best split point and best split point list
         max_infoGain_ratio = 0.0
+        # max_sample_attr = 0
         best_split_point = 0.0
         best_split_point_list = []
         for attr in self.X.keys():
@@ -66,8 +67,16 @@ class TreeNode:
             if infoGain_ratio >= max_infoGain_ratio:
               max_infoGain_ratio = infoGain_ratio
               self.split_attr = attr
+              # max_sample_attr = len(self.X)
               best_split_point_list = split_point_list
               best_split_point = splited_point
+            # elif infoGain_ratio == max_infoGain_ratio:
+            #   if len(self.X) > max_sample_attr:
+            #     max_infoGain_ratio = infoGain_ratio
+            #     self.split_attr = attr
+            #     max_sample_attr = len(self.X)
+            #     best_split_point_list = split_point_list
+            #     best_split_point = splited_point               
 
         # append the best split point list, best_split_point, its split attribute and max info gain ratio to split_point_info list
         self.split_point_info.append(list(best_split_point_list))
@@ -190,8 +199,10 @@ class TreeNode:
       print("The number of samples is: ", len(self.X))
       print("Determining the decision -> ",self.decision)
       print('--------------------------------------------------------------------')
-      vis[self.name]["value"] = int(self.decision)
+      vis[self.name]["value"] = self.decision
   
   def print_tree(self, vis):
-    root_name= "Root node" 
+    root_name= "Root node"
+    with open("wine_33.json", "w") as f:
+      json.dump(vis, f, sort_keys=True, indent=4)
     print (json.dumps(vis, sort_keys=True, indent=4))
