@@ -1,7 +1,6 @@
 import numpy as np
 import random
 import pandas as pd
-from pandas.io import parsers
 
 
 #############################################ID3####################################################
