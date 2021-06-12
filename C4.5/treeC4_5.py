@@ -58,7 +58,7 @@ class TreeC4_5:
         next_attr = current_node.split_attr + ' > ' + str(current_node.split_point)
       
       else:
-        next_attr = current_node.split_attr + ' < ' + str(current_node.split_point)
+        next_attr = current_node.split_attr + ' <= ' + str(current_node.split_point)
           
       current_node = current_node.children[next_attr]
 

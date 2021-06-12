@@ -1,3 +1,4 @@
+import json
 from utils import Myutils
 
 utils = Myutils()
@@ -18,6 +19,7 @@ class TreeNode:
     self.split_attr = None # To record the best split attribute
     self.split_point_info = [] # store the best split point list, best_split_point, its split attribute and max info gain ratio in this list
     self.children = {} # store the child node in dictionary structure
+    # self.vis = {}
 
   def make(self):
     # use the mode of target datasets to determine the default decision
@@ -37,6 +39,7 @@ class TreeNode:
       self.entropy = utils.compute_entropy(self.y)
       # if there is only one type of target values, determine the decision by this value 
       target_unique_values = self.y.unique()
+      # print (self.y, target_unique_values)
       if len(target_unique_values) == 1:
         self.decision = target_unique_values[0]
         return
@@ -44,6 +47,7 @@ class TreeNode:
       else:
         # initialize the value of max information gain ratio, best split point and best split point list
         max_infoGain_ratio = 0.0
+        # max_sample_attr = 0
         best_split_point = 0.0
         best_split_point_list = []
         for attr in self.X.keys():
@@ -60,11 +64,19 @@ class TreeNode:
             self.attrs_info_gain_ratio[attr] = infoGain_ratio
 
             # select the max information gain ratio
-            if infoGain_ratio > max_infoGain_ratio:
+            if infoGain_ratio >= max_infoGain_ratio:
               max_infoGain_ratio = infoGain_ratio
               self.split_attr = attr
+              # max_sample_attr = len(self.X)
               best_split_point_list = split_point_list
               best_split_point = splited_point
+            # elif infoGain_ratio == max_infoGain_ratio:
+            #   if len(self.X) > max_sample_attr:
+            #     max_infoGain_ratio = infoGain_ratio
+            #     self.split_attr = attr
+            #     max_sample_attr = len(self.X)
+            #     best_split_point_list = split_point_list
+            #     best_split_point = splited_point               
 
         # append the best split point list, best_split_point, its split attribute and max info gain ratio to split_point_info list
         self.split_point_info.append(list(best_split_point_list))
@@ -134,7 +146,7 @@ class TreeNode:
             # print("------------------------------------------------------------------------------------------------------------")
           return
 
-  def print_node_details(self):
+  def print_node_details(self, vis):
     '''
     To print the details of each node, the output for each node will be:
       1. (First view of the node / Back to the node) : node name
@@ -152,7 +164,6 @@ class TreeNode:
     '''
     # intialize the time
     time = 1
-
     if self.split_attr is not None:
       for k,v in self.children.items():
         if len(self.split_point_info) != 0:
@@ -172,9 +183,12 @@ class TreeNode:
           print("\nSplited by {}, its information gain ratio is {}, its splited points list is:\n {}".format(self.split_point_info[1][1],self.split_point_info[1][2],self.split_point_info[0]))
           print("Among these splited points, the best splited point is {}".format(self.split_point_info[1][0]))
           print("The child node is: {}".format(k))
+          vis[k] = {
+            "root": self.name
+          }
           print('--------------------------------------------------------------------')
           time += 1
-          v.print_node_details()
+          v.print_node_details(vis)
           
              
     else:
@@ -185,3 +199,10 @@ class TreeNode:
       print("The number of samples is: ", len(self.X))
       print("Determining the decision -> ",self.decision)
       print('--------------------------------------------------------------------')
+      vis[self.name]["value"] = self.decision
+  
+  def print_tree(self, vis):
+    root_name= "Root node"
+    with open("wine_33.json", "w") as f:
+      json.dump(vis, f, sort_keys=True, indent=4)
+    print (json.dumps(vis, sort_keys=True, indent=4))
